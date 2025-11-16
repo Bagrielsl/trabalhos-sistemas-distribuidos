@@ -10,6 +10,7 @@ MATRICULA = ""
 print(f"Conectando a {HOST}:{PORT}...")
 try:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.settimeout(30.0)
         sock.connect((HOST, PORT))
         # Operação AUTH
         timestamp = time.strftime('%Y-%m-%dT%H:%M:%S', time.gmtime())
@@ -90,5 +91,7 @@ try:
         print(f"Recebido: {resposta.decode('utf-8').strip()}")
 except ConnectionRefusedError:
     print("Erro: A conexão foi recusada.")
+except socket.timeout:
+    print(f"Erro de Rede: Timeout durante a conexão inicial.")
 except Exception as e:
     print(f"Ocorreu um erro: {e}")
