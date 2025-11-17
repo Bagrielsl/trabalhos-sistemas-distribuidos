@@ -40,7 +40,7 @@ try:
             dados = resposta.ok.dados
             token = dados.get('token')
             if not token:
-                raise Exception("Sucesso, mas token não foi recebido.")
+                raise Exception('Resposta OK, mas não foi possível encontrar o token.')
             print(f"Resposta: {dados}")
             
             # Operacao ECHO
@@ -68,6 +68,8 @@ try:
             if resposta.WhichOneof('tipo') == 'ok':
                 dados = resposta.ok.dados
                 print(f"Resposta: {dados}")
+            else:
+                print(f"Erro do Servidor: {resposta.erro.mensagem}")
             
             #Operacao SOMA
             req_soma = sd_protocol_pb2.Requisicao()
@@ -94,6 +96,8 @@ try:
             if resposta.WhichOneof('tipo') == 'ok':
                 dados = resposta.ok.dados
                 print(f"Resposta: {dados}")
+            else:
+                print(f"Erro do Servidor: {resposta.erro.mensagem}")
 
             #Operacao TIMESTAMP
             req_timestamp = sd_protocol_pb2.Requisicao()
@@ -119,6 +123,8 @@ try:
             if resposta.WhichOneof('tipo') == 'ok':
                 dados = resposta.ok.dados
                 print(f"Resposta: {dados}")
+            else:
+                print(f"Erro do Servidor: {resposta.erro.mensagem}")
             
             #Operacao STATUS
             req_status = sd_protocol_pb2.Requisicao()
@@ -145,6 +151,8 @@ try:
             if resposta.WhichOneof('tipo') == 'ok':
                 dados = resposta.ok.dados
                 print(f"Resposta: {dados}")
+            else:
+                print(f"Erro do Servidor: {resposta.erro.mensagem}")
 
             #Operacao HISTORICO
             req_historico = sd_protocol_pb2.Requisicao()
@@ -171,6 +179,8 @@ try:
             if resposta.WhichOneof('tipo') == 'ok':
                 dados = resposta.ok.dados
                 print(f"Resposta: {dados}")
+            else:
+                print(f"Erro do Servidor: {resposta.erro.mensagem}")
             
             #Logout
             req_logout = sd_protocol_pb2.Requisicao()
@@ -195,7 +205,8 @@ try:
             if resposta.WhichOneof('tipo') == 'ok':
                 dados = resposta.ok.dados
                 print(f"Resposta: {dados}")
-        
+            else:
+                print(f"Erro do Servidor: {resposta.erro.mensagem}")
         elif tipo_resposta == 'erro':
             raise Exception(f"Erro do Servidor: {resposta.erro.mensagem}")
         else:
